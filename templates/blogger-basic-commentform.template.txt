@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><$BlogPageTitle$></title>
+
+  <$BlogMetaData$>
+
+<script type="text/javascript"> 
+//<![CDATA[
+
+function xget(xpathSelector) {
+  var it = document.evaluate( xpathSelector, document, null,
+			      XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
+  if(it.snapshotLength)
+    return it.snapshotItem(0);
+  return '';
+}//end function xget
+
+function toggleitem(postid,linkid,newtxt,displaytype) {
+   if(!displaytype) {displaytype = 'block';}
+   var whichpost = document.getElementById(postid);
+   if (whichpost.style.display != "none") {
+      whichpost.style.display = "none";
+   } else {
+      whichpost.style.display = displaytype;
+   }
+   if(linkid) {
+         var lnk = document.getElementById(linkid);
+         lnk.href = "javascript:toggleitem('"+postid+"','"+linkid+"','"+lnk.innerHTML+"');";
+         lnk.innerHTML = newtxt;
+   }
+}
+//]]>
+</script>
+
+<style type="text/css">
+   body {
+      background-color: #000;
+      font-family: "Trebuchet MS",Trebuchet,Verdana,Sans-Serif;
+      font-size: 11pt;
+      color: #ccc;
+   }
+   img {
+      border-width: 0px;
+   }
+   a:link, A, .xoxo.blogroll .title {
+      text-decoration: none;
+      color: #9ad;
+      cursor: pointer;
+   }
+   a:visited, A:visited {
+      text-decoration: none;
+      color: #a7a;
+   }
+   a:hover, A:hover, .xoxo.blogroll .title:hover {
+      color: #ad9;
+      text-decoration: underline;
+   }
+   a img, A img {
+      border-width: 0px;
+   }
+   #main {
+      display: block;
+      padding-right: 10px;
+   }
+   .xoxo.posts {
+      display: block;
+      background-color: #000;
+      position: absolute;
+      top: 120px;
+      left: 290px;
+   }
+   #sidebar {
+      display: block;
+      width: 250px;
+      position: absolute;
+      top: 140px;
+      left: 2px;
+      padding-left: 5px;
+   }
+   #sidebar ul {
+      list-style-type: none;
+      padding-left: 0px;
+      padding-top: 0px;
+      margin-top: 0px;
+      border-bottom: 1px dotted #444;
+      padding-bottom: 10px;
+   }
+   #sidebar ul ul {
+      border-width: 0px;
+      padding-bottom: 0px;
+   }
+   #sidebar li {
+      margin-left: 20px;
+      text-indent: -20px;
+   }
+   #sidebar #license, #sidebar #xoxovalid, #sidebar #blogshares {
+      margin-top: 2em;
+      text-align: center;
+   }
+   #sidebar #firefox[id] {
+      display: none;
+   }
+   h2,.xoxo.blogroll>li {
+      font-size: 11pt;
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      margin-bottom: 2px;
+      color: #777;
+   }
+   .xoxo.blogroll>li {
+      margin-bottom: 10px;
+   }
+   .xoxo.blogroll>li>ul {
+      font-weight: normal;
+      letter-spacing: 1px;
+      font-size: 12pt;
+   }
+   .xoxo, .xoxo ul, .xoxo ol {
+      padding-left: 0px;
+      list-style-type: none;
+   }
+   #title {
+      display: block;
+      position: absolute;
+      top: -75px;
+      left: 0px;
+   }
+   #title a {
+      display: block;
+      font-weight: bold;
+      font-size: 3em;
+      text-decoration: none;
+      color: #ccc;
+   }
+   #title a:visited {
+      color: #ccc;
+   }
+   #title a:hover {
+      color: #ad9;
+   }
+   #title a:after {
+      content: attr(title);
+      display: block;
+      color: black;
+      font-weight: normal;
+      font-size: 12pt;
+   }
+   #title a[rel~=alternate] {
+      display: none;
+   }
+   #title {
+      list-style-type: none;
+   }
+   .hentry {
+      list-style-type: none;
+   }
+   .hentry dl ul {
+      list-style-type: disc;
+      padding-left: 50px;
+   }
+   .hentry dl ol {
+      list-style-type: decimal;
+      padding-left: 50px;
+   }
+   .hentry dl {
+      display: inline;
+   }
+   .hentry dt {
+      display: none;
+   }
+   .hentry dd {
+      margin-left: 0px;
+   }
+   .hentry .entry-title {
+      display: block;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0.8em;
+      color: #ad9;
+   }
+   .hentry a.entry-title {
+      text-decoration: none;
+      color: #ad9;
+   }
+   .hentry a.entry-title:visited {
+      color: #0ed;
+      color: #ad9;
+   }
+   .hentry a.entry-title:hover {
+      text-decoration: none;
+      color: #fff;
+   }
+   .hentry dd.entry-content {
+      display: block;
+   }
+   .hentry .author {
+      display: inline;
+      font-style: normal;
+   }
+   .hentry a.comments:after {
+      content: " Comments";
+   }
+   .hentry .postend {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0em;
+      border-top: 0px dotted #444;
+      border-bottom: 1px dotted #444;
+      color: #333;
+   }
+   .comments {
+      list-style-type: none;
+      margin-left: 0px;
+      margin-top: 0.5em;
+   }
+   .comments li {
+      display: block;
+      margin-left: 0px;
+      margin-bottom: 1em;
+   }
+   .comments dl {
+      display: inline;
+   }
+   .comments dd {
+      margin-left: 0px;
+   }
+   .comments dt {
+      display: none;
+   }
+   .comments dd.author {
+      display: inline;
+      font-size: 1em;
+   }
+   .comments dd.content {
+      display: block;
+      margin-top: 0.5em;
+   }
+   dt.comment-title {
+      display: block;
+   }
+   dd.comment-body {
+      padding-left: 20px;
+   }
+   .commentphoto {
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+   }
+   .commentelem {
+      clear: left;
+   }
+   div.tags ul { display:inline; }
+   div.tags li { padding-left:14px; margin-left:8px; background: url('http://del.icio.us/static/img/delicious.small.gif') no-repeat 0 3px; display:inline; }
+</style>
+
+<script type="text/javascript">
+//<![CDATA[
+document.writeln("<style type=\"text/css\">.xoxo.posts {width:" + (window.innerWidth - 350) + "px;}</style>");//set main width
+//]]>
+</script>
+
+
+</head>
+
+<body>
+
+<div id="main">
+
+<ul class="xoxo posts hfeed">
+
+   <li id="title"> <a href="<$BlogURL$>/" title="<$BlogDescription$>" class="<$BlogID$>" rel="home"><$BlogTitle$></a>
+      <a href="<$BlogSiteFeedUrl$>" rel="alternate"><img src="http://photos1.blogger.com/blogger/6537/1341/1600/xml.png" alt="<$BlogTitle$> (feed)" /></a>
+   </li>
+
+<Blogger>
+
+   <li class="hentry" id="post<$BlogItemNumber$>">
+<script type="text/javascript">backlink = new Array();BL_Backlinks = new Array();</script>
+<script type="text/javascript" src="http://www.blogger.com/dyn-js/backlink.js?blogID=<$BlogID$>&amp;postID=<$BlogItemNumber$>"></script>
+      <BlogDateHeader><h2 class="date-header"><$BlogDateHeaderDate$></h2></BlogDateHeader>
+      <a href="<$BlogItemPermalinkUrl$>" title="<$BlogItemNumber$>0" class="entry-title" rel="bookmark permalink"><BlogItemTitle><$BlogItemTitle$></BlogItemTitle></a>
+      <dl>
+         <dt>body</dt>
+            <dd class="entry-content"><$BlogItemBody$></dd>
+      </dl>
+<div class="postfooter">
+<address class="author vcard">
+ <a rel="author" class="url fn" href="<$BlogItemAuthorURL$>"><$BlogItemAuthor$></a>
+</address>
+ at <a rel="archive" class="published updated" href="<$BlogURL$>/<$BlogItemArchiveFileName$>"><$BlogItemDateTime$></a>
+ <BlogItemCommentsEnabled>| <a class="comments" rel="comments" href="<$BlogItemPermalinkUrl$>#comments" onclick="toggleitem('comments<MainOrArchivePage><$BlogItemNumber$></MainOrArchivePage>');return false;"><$BlogItemCommentCount$></a> |</BlogItemCommentsEnabled>
+ <BlogItemBacklinksEnabled> <a href="<$BlogItemPermalinkUrl$>#backlinks" onclick="toggleitem('backlinks<MainOrArchivePage><$BlogItemNumber$></MainOrArchivePage>');return false;"><script type="text/javascript">if(BL_Backlinks){document.write(BL_Backlinks.length);}else{document.write('0');}</script> Backlinks</a> |</BlogItemBacklinksEnabled>
+ <a href="<$BlogItemPermalinkUrl$>" title="permalink" class="permalink" rel="bookmark permalink">permalink</a>
+<BlogItemURL>| <a href="<$BlogItemURL$>" rel="external">external</a></BlogItemURL>
+  <span class="control"><$BlogItemControl$></span>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+   posturl = "<$BlogItemPermalinkUrl$>";
+//]]>
+</script>
+  <hr class="postend" />
+<BlogItemCommentsEnabled>
+   <MainOrArchivePage><div id="comments<$BlogItemNumber$>" style="display:none;"></MainOrArchivePage>
+   <ItemPage><div id="comments" style="display:inline;"></ItemPage>
+   There is an <a rel="alternate comments" href="http://bloggercomments.ning.com/index.php?xn_auth=no&amp;url=<$BlogItemPermalinkUrl$>&amp;post=on&amp;tz=%2B1&amp;format=rss20">RSS Feed</a> for comments to this post.
+      <ul class="comments"> 
+<BlogItemComments>
+         <li class="commentelem" id="c<$BlogCommentNumber$>">Comment at <a href="#c<$BlogCommentNumber$>" title="<$BlogCommentNumber$>0"><$BlogCommentDateTime$></a> by
+            <$BlogCommentAuthor$>
+<script type="text/javascript">
+//<![CDATA[
+   commentlink = xget('//li[@id="c<$BlogCommentNumber$>"]//a');
+   if(commentlink) {
+      fragment = commentlink.href.split('#')[1];
+      commentlink.href = posturl+'#'+fragment;
+   }//end if commentlink
+//]]>
+</script>
+<a name="<$BlogCommentNumber$>"> </a>
+            <dl>
+               <dt class="body">body</dt>
+                  <dd class="body"><$BlogCommentBody$></dd>
+            </dl>
+<$BlogCommentDeleteIcon$>
+<br />
+         </li>
+</BlogItemComments>
+      </ul>
+
+<!-- COMMENT FORM -->
+<ItemPage>
+<script type="text/javascript">
+
+var blogTool = "Blogger";
+var blogURL = "<$BlogURL$>/";
+var blogTitle = "<$BlogTitle$>";
+var postURL = "<$BlogItemPermalinkUrl$>";
+var postTitle = "<BlogItemTitle><$BlogItemTitle$></BlogItemTitle>";
+var commentAuthorFieldName = "anonName";
+var commentAuthorLoggedIn = "false";
+var commentFormID = "cformtag<$BlogItemNumber$>";
+var commentTextFieldName = "postBody";
+var commentButtonName = "post";
+var cocomment_force = false;
+
+</script>
+
+<script type="text/javascript" src="http://www.cocomment.com/js/cocomment.js"> </script>
+</ItemPage>
+<ItemPage><a href="javascript:toggleitem('cform');">Post a Comment</a>
+<div style="display:block;" id="cform"></ItemPage>
+<MainOrArchivePage><a href="javascript:toggleitem('cform<$BlogItemNumber$>');">Post a Comment</a>
+<div style="display:none;" id="cform<$BlogItemNumber$>"></MainOrArchivePage>
+   <form action="http://www.blogger.com/login-comment.do" onsubmit="isSubmit=true;" method="post"><div>
+      <input type="hidden" name="blogID" value="<$BlogID$>" />
+      <input type="hidden" name="postID" value="<$BlogItemNumber$>" /> 
+      <div>
+         <h2 class="sidebar-title form-title"><label class="cbody">Leave your comment </label></h2>
+         <h2 class="sidebar-title">  You can use some HTML tags, such as <b>  &lt;b&gt;, &lt;i&gt;, &lt;a&gt;  </b> </h2>
+         <textarea name="postBody" class="comment" rows="8" cols="40"></textarea>
+         <h2 class="sidebar-title identity"> Choose an identity </h2>
+         <div>
+            <div>
+               <input type="radio" name="iden" value="Blogger" checked="checked" onchange="toggleitem('cfo<$BlogItemNumber$>');" />
+               <label> Your Blogger display name </label>
+            </div>
+            <div>
+               <input type="radio" name="iden" value="Other" onchange="toggleitem('cfo<$BlogItemNumber$>');" />
+               <label>Other</label>
+               <div style="display:none;" id="cfo<$BlogItemNumber$>">
+                  <table style="margin-left: 4em;" cellpadding="0" cellspacing="0">
+                  <tr> <td colspan="2" style="padding-top:.4em;position:relative;left:-4em;" align="left"> These fields are optional, but I would appreciate it if you filled them out. </td></tr> 
+                  <tr> <td> <label> Name </label> </td>
+                  <td> <div class="errorbox-good"> <input type="text" name="anonName" value="" maxlength="100" class="text" />  </div> </td> </tr>
+                  <tr> <td> <label> Your web page </label> </td>
+                  <td> <div class="errorbox-good"> <input type="text" name="anonURL" value="" maxlength="100" class="text" />  </div> </td> </tr>
+                  </table>
+               </div>
+            </div>
+            <div class="diff-user">  Or you can sign in  <a href="http://www.blogger.com/login.g?r=http%3A%2F%2Fwww.blogger.com%2Fcomment.g%3FblogID%3D<$BlogID$>%26postID%3D<$BlogItemNumber$>">  as a different user</a>.</div>
+         </div>
+      </div>
+      <div class="errorbox-good">  </div>
+      <p class="buttons">
+         <input style="margin-right:.3em" name="post" value="Publish Your Comment" class="publish" onclick="isSubmit=true;" type="submit" tabindex="2" />
+         <input value="Preview" type="submit" name="preview" onclick="isSubmit=true;" tabindex="3" />
+      </p>
+   </div></form>
+</div>
+<!-- END COMMENT FORM -->
+      
+   </div>
+</BlogItemCommentsEnabled>
+
+<BlogItemBacklinksEnabled>
+<MainOrArchivePage><div id="backlinks<$BlogItemNumber$>" style="display:none;"></MainOrArchivePage>
+<ItemPage><div id="backlinks" style="display:block;"></ItemPage>
+<script type="text/javascript">
+//<![CDATA[
+   for(var i = 0; i < BL_Backlinks.length; i++) {
+      document.write('<dt class="comment-title">');
+      document.write('<span class="comment-toggler">&nbsp;</span>');
+      document.write('<a href="'+BL_Backlinks[i]["BlogBacklinkURL"]+'">'+BL_Backlinks[i]["BlogBacklinkTitle"]+'</a>');
+      document.write('</dt>');
+      document.write('<dd class="comment-body">'+BL_Backlinks[i]["BlogBacklinkSnippet"]);
+      document.write('<br />');
+      document.write('<span class="comment-poster">');
+      document.write('<em>posted by '+BL_Backlinks[i]["BlogBacklinkAuthor"]+' @ '+BL_Backlinks[i]["BlogBacklinkDateTime"]+'</em>');
+      document.write('</span>');
+      document.write('</dd>');
+   }//end for
+//]]>
+</script>
+<p class="comment-timestamp"><a class="comment-link" href="javascript:BlogThis();">Create a Link</a></p>
+</div>
+</BlogItemBacklinksEnabled>
+
+</li>
+
+</Blogger>
+</ul>
+
+<div id="sidebar">
+   A blog by :<br />
+   <div class="vcard">
+      <a class="url" href="<$BlogOwnerProfileURL$>"><span class="fn n"><$BlogOwnerFullName$></span> a.k.a. <span class="nickname"><$BlogOwnerNickname$></span></a>
+   </div>
+   <br />
+
+   <ul class="xoxo">
+      <li><img src="http://photos1.blogger.com/blogger/6537/1341/1600/feed-icon-12x12.jpg" alt="" /> <a href="<$BlogSiteFeedUrl$>">Post Feed</a></li>
+      <li><img src="http://photos1.blogger.com/blogger/6537/1341/1600/feed-icon-12x12.jpg" alt="" /> <a href="http://bloggercomments.ning.com/index.php?xn_auth=no&amp;url=<$BlogURL$>/&amp;tz=%2B1&amp;format=rss20">Comment Feed</a></li>
+   </ul>
+
+   <ul class="xoxo blogroll">
+      <li> Links
+         <ul>
+            <li><a href="http://help.blogger.com/bin/answer.py?answer=110">Edit-Me</a></li>
+         </ul>
+      </li>
+      <!-- ADD BLOGROLLS USING THE FOLLOWING CODE STYLE :
+         <li> BLOGROLL TITLE
+            <ul>
+               <li><a href="ITEM URL">ITEM TITLE</a></li>
+            </ul>
+         </li>
+         OPTIONALLY, USE THIS LINE TO INCLUDE FEED DATA :
+         <li><a href="ITEM URL">ITEM TITLE</a> <a href="FEED URL" rel="alternate">[feed]</a></li>
+      -->
+   </ul>
+
+   <h2 class="sidebar-title">Archives</h2>
+   <ul class="xoxo archive-list">
+   <BloggerArchives>
+     <li><a href="<$BlogArchiveURL$>"><$BlogArchiveName$></a></li>
+   </BloggerArchives>
+   </ul>
+
+   <h2 class="sidebar-title">Recent Comments</h2>
+   <script type="text/javascript" src="http://bloggercomments.ning.com/index.php?xn_auth=no&amp;url=<$BlogURL$>/&amp;max=5&amp;chars=20&amp;tz=%2B1&amp;format=js"></script>
+
+   <h2 class="sidebar-title">Previous Posts</h2>
+   <div id="oldposts">
+      <ul>
+         <BloggerPreviousItems><li><a href="<$BlogItemPermalinkURL$>"><$BlogPreviousItemTitle$></a></li></BloggerPreviousItems>
+      </ul>
+   </div>
+
+   <div id="xoxovalid">
+      <a href="http://xoxotools.ning.com/xoxovalid.php?url=<$BlogURL$>/"><img src="http://photos1.blogger.com/blogger/6537/1341/1600/XOXObadge.png" alt="Valid XOXO!" /></a>
+   </div>
+
+<div id="firefox">
+This page best viewed using <a href="http://www.spreadfirefox.com/?q=affiliates&amp;id=119619&amp;t=66">Mozilla Firefox</a>.
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

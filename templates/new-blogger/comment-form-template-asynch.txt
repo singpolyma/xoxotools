@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><data:blog.pageTitle/></title>
+
+  <b:include data='blog' name='all-head-content'/>
+
+<script src='http://jscripts.ning.com/get.php?xn_auth=no&amp;amp;id=1093361' type='text/javascript'/>
+<script src='http://jscripts.ning.com/get.php?xn_auth=no&amp;amp;id=2655847' type='text/javascript'/>
+<link href='http://singpolyma.googlepages.com/lightbox.css' rel='stylesheet' type='text/css'/>
+
+<script type="text/javascript"> 
+//<![CDATA[
+
+if(window.location.href.match(/.*?index.html/)) window.location = window.location.href.match(/(.*)?index.html/)[1];
+
+function xget(xpathSelector) {
+  var it = document.evaluate( xpathSelector, document, null,
+			      XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
+  if(it.snapshotLength)
+    return it.snapshotItem(0);
+  return '';
+}//end function xget
+
+function toggleitem(postid,linkid,newtxt,displaytype) {
+   if(!displaytype) {displaytype = 'block';}
+   var whichpost = document.getElementById(postid);
+   if (whichpost.style.display != "none") {
+      whichpost.style.display = "none";
+   } else {
+      whichpost.style.display = displaytype;
+   }
+   if(linkid) {
+         var lnk = document.getElementById(linkid);
+         lnk.href = "javascript:toggleitem('"+postid+"','"+linkid+"','"+lnk.innerHTML+"');";
+         lnk.innerHTML = newtxt;
+   }
+}
+//]]>
+</script>
+
+<script type='text/javascript'>
+//<![CDATA[
+ 
+var comment_form_template = '<li class="commentelem" id="c[[ID]]"><div class="commentphoto" style="float:left;margin-right:5px;"></div>'
+ + 'Comment at <a href="[[PERMALINK]]" title="[[UTIME]]">[[DATE]]<\/a> by '
+ + '<address class="author vcard"><span rel="fn">[[AUTHOR]]<\/span><\/address> '
+ + '<a name="[[CID]]"> <\/a> '
+ + '<dl> <dt class="body">body<\/dt> <dd class="body">[[BODY]]<\/dd> <\/dl> '
+ + '<div style="clear:both;"></div> <br \/> '
+ + '<\/li> ';
+
+//]]>
+</script>
+<script src='http://jscripts.ning.com/get.php?xn_auth=no&amp;amp;id=2941927' type='text/javascript'></script>
+
+
+<b:skin><![CDATA[
+
+  /*
+   * Variable definitions:
+   *  <Variable name="bgcolour" description="Page Background Color" type="color" default="#000"/>
+   *  <Variable name="mainfont" description="Main Page Font" type="font" default="normal normal 100% 'Trebuchet MS',Trebuchet,Verdana,Sans-Serif"/>
+   *  <Variable name="mainfontcolour" description="Main Page Font Colour" type="color" default="#ccc"/>
+   *  <Variable name="linkfontcolour" description="Link Main Font Colour" type="color" default="#9ad"/>
+   *  <Variable name="visitedlinkfontcolour" description="Link Visited Font Colour" type="color" default="#a7a"/>
+   *  <Variable name="hoverlinkfontcolour" description="Link Hover Font Colour" type="color" default="#ad9"/>
+   *  <Variable name="hoverposttitlecolour" description="Post Title Hover Font Colour" type="color" default="#fff"/>
+   *  <Variable name="blogrollfont" description="Blogroll Font" type="font" default="normal normal 100% 'Trebuchet MS',Trebuchet,Verdana,Sans-Serif"/>
+   *  <Variable name="h2font" description="H2 Font" type="font" default="normal bold 100% 'Trebuchet MS',Trebuchet,Verdana,Sans-Serif"/>
+   *  <Variable name="h2fontcolour" description="H2 Font Colour" type="color" default="#333"/>
+   */
+
+   body {
+      background-color: $bgcolour;
+      font: $mainfont;
+      color: $mainfontcolour;
+   }
+   img, a img, A img {
+      border-width: 0px;
+   }
+   a:link, A, .xoxo.blogroll .title {
+      text-decoration: none;
+      color: $linkfontcolour;
+      cursor: pointer;
+   }
+   a:visited, A:visited {
+      text-decoration: none;
+      color: $visitedlinkfontcolour;
+   }
+   a:hover, A:hover, .xoxo.blogroll .title:hover {
+      color: $hoverlinkfontcolour;
+      text-decoration: underline;
+   }
+   #main {
+      display: block;
+      padding-right: 10px;
+   }
+   .xoxo.posts {
+      display: block;
+      background-color: $bgcolour;
+      position: absolute;
+      top: 120px;
+      left: 290px;
+   }
+   #sidebar {
+      display: block;
+      width: 250px;
+      position: absolute;
+      top: 140px;
+      left: 2px;
+      padding-left: 5px;
+   }
+   #sidebar ul {
+      list-style-type: none;
+      padding-left: 0px;
+      padding-top: 0px;
+      margin-top: 0px;
+      border-bottom: 1px dotted #444;
+      padding-bottom: 10px;
+   }
+   #sidebar ul ul {
+      border-width: 0px;
+      padding-bottom: 0px;
+   }
+   #sidebar li {
+      margin-left: 20px;
+      text-indent: -20px;
+   }
+   #sidebar #license, #sidebar #xoxovalid, #sidebar #blogshares {
+      margin-top: 2em;
+      text-align: center;
+   }
+   #sidebar #firefox[id] {
+      display: none;
+   }
+   h2 {
+      font: $h2font;
+      color: $h2fontcolour;
+      letter-spacing: 0.2em;
+      margin-bottom: 2px;
+   }
+   .xoxo.blogroll>li {
+      font: $blogrollfont;
+   }
+   .xoxo.blogroll>li {
+      margin-bottom: 10px;
+   }
+   .xoxo, .xoxo ul, .xoxo ol {
+      padding-left: 0px;
+      list-style-type: none;
+   }
+   #title {
+      display: block;
+      position: absolute;
+      top: -75px;
+      left: 0px;
+   }
+   #title a {
+      display: block;
+      font-weight: bold;
+      font-size: 3em;
+      text-decoration: none;
+      color: $linkfontcolour;
+   }
+   #title a:visited {
+      color: $visitedlinkfontcolour;
+   }
+   #title a:hover {
+      color: $hoverlinkfontcolour;
+   }
+   #title a:after {
+      content: attr(title);
+      display: block;
+      color: $mainfontcolour;
+      font-weight: normal;
+      font-size: 1em;
+   }
+   #title a[rel~=alternate] {
+      display: none;
+   }
+   #title {
+      list-style-type: none;
+   }
+   .hentry {
+      list-style-type: none;
+   }
+   .hentry dl ul {
+      list-style-type: disc;
+      padding-left: 50px;
+   }
+   .hentry dl ol {
+      list-style-type: decimal;
+      padding-left: 50px;
+   }
+   .hentry dl {
+      display: inline;
+   }
+   .hentry dt {
+      display: none;
+   }
+   .hentry dd {
+      margin-left: 0px;
+   }
+   .hentry .entry-title {
+      display: block;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0.8em;
+      color: $hoverlinkfontcolour;
+   }
+   .hentry a.entry-title {
+      text-decoration: none;
+      color: $hoverlinkfontcolour;
+   }
+   .hentry a.entry-title:visited {
+      color: $hoverlinkfontcolour;
+   }
+   .hentry a.entry-title:hover {
+      text-decoration: none;
+      color: $hoverposttitlecolour;
+   }
+   .hentry dd.entry-content {
+      display: block;
+   }
+   .hentry .author {
+      display: inline;
+      font-style: normal;
+   }
+   .hentry a.comments:after {
+      content: " Comments";
+   }
+   .hentry .postend {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0em;
+      border-top: 0px dotted #444;
+      border-bottom: 1px dotted #444;
+      color: $h2fontcolour;
+   }
+   .comments {
+      list-style-type: none;
+      margin-left: 0px;
+      margin-top: 0.5em;
+   }
+   .comments li {
+      display: block;
+      margin-left: 0px;
+      margin-bottom: 1em;
+   }
+   .comments dl {
+      display: inline;
+   }
+   .comments dd {
+      margin-left: 0px;
+   }
+   .comments dt {
+      display: none;
+   }
+   .comments dd.author {
+      display: inline;
+      font-size: 1em;
+   }
+   .comments dd.content {
+      display: block;
+      margin-top: 0.5em;
+   }
+   dt.comment-title {
+      display: block;
+   }
+   dd.comment-body {
+      padding-left: 20px;
+   }
+   .commentphoto {
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+   }
+   .commentelem {
+      clear: left;
+   }
+   div.tags ul { display:inline; }
+   div.tags li { padding-left:14px; margin-left:8px; display:inline; }
+]]></b:skin>
+
+<script type="text/javascript">
+//<![CDATA[
+document.writeln("<style type=\"text/css\">.xoxo.posts {width:" + (window.innerWidth - 350) + "px;}</style>");//set main width
+//]]>
+</script>
+
+
+</head>
+
+<body>
+
+<div id="main">
+
+<ul class="xoxo posts hfeed">
+
+<li id='title'>
+   <b:section class='header' id='header' showaddelement='no' growth='vertical'>
+      <b:widget id='Header1' locked='false' title='Header' type='Header'>
+         <b:includable id='main'>
+<!-- class=BlogID, feed URL not working -->
+            <a expr:href='data:blog.homepageUrl' expr:title='data:description' rel='home'><data:title/></a>
+<!-- <a expr:href='data:f.url' expr:type='data:f.mimeType' rel='alternate'><img alt='[feed]' src='http://photos1.blogger.com/blogger/6537/1341/1600/xml.png'/></a> -->
+         </b:includable>
+      </b:widget>
+   </b:section>
+</li>
+
+<b:section class='posts' id='posts' showaddelement='yes' growth='vertical'>
+   <b:widget id='PostWidget' locked='false' title='Posts' type='Blog'>
+      <b:includable id='main'>
+         <b:loop values='data:posts' var='post'>
+
+   <li class="hentry" expr:id='"post" + data:post.id'>
+
+<b:if cond='data:post.dateHeader'><h2 class='date-header'><data:post.dateHeader/></h2></b:if>
+
+      <a expr:href='data:post.url' class="entry-title" rel="bookmark permalink"><b:if cond='data:post.title'><data:post.title/></b:if></a>
+<a expr:name='data:post.id'/>
+
+<script type='text/javascript'>
+   var isLoad<data:post.id/> = 0;
+   function checkDeactivate<data:post.id/>() {
+      if(isLoad<data:post.id/> &gt; 1) {
+//<![CDATA[
+         document.getElementById('lbContent').innerHTML = '<div style="text-align:center;width:100%;font-size:16pt;font-family:sans-serif;"><br /><br /><br />Reloading...</div>';
+//]]>
+         window.location.reload();
+      }//end if isLoad
+      isLoad<data:post.id/>++;
+   }//end function checkDeactivate
+</script>
+<div expr:id='"comment-form-" + data:post.id' style='display:none;'>
+<iframe expr:onload='"checkDeactivate" + data:post.id + "();"' expr:src='data:post.addCommentUrl + "&amp;amp;isPopup=true"' frameborder='0' style='border-width:0px;width:100%;height:380px;'/>
+<div style='text-align: right;'><a class='lbAction' href='#' rel='deactivate'><img alt='' src='http://www.ning.com/xnstatic/icn/cross.gif' style='display: inline; width: 10px; height: 10px;'/> Close</a></div>
+</div>
+
+      <dl>
+         <dt>body</dt>
+            <dd class="entry-content">
+               <data:post.body/>
+               <div class="tags"> Tags:
+                  <ul>
+                     <b:loop values='data:post.labels' var='tag'>
+                        <li><a expr:href="data:tag.url" rel="tag"><data:tag.name/></a></li>
+                     </b:loop>
+                  </ul>
+               </div>
+            </dd>
+      </dl>
+<div class="postfooter">
+<address class="author vcard">
+ <a rel="author" class="fn url" expr:href='data:blog.homepageUrl'><data:post.author/></a>
+</address>
+ at <span class="published updated"><data:post.timestamp/></span>
+ <b:if cond='data:post.allowComments'>|
+    <b:if cond='data:blog.pageType == "item"'><a class="comments" rel="comments" expr:href='data:post.url + "#comments"' onclick="toggleitem('comments');return false;"><data:post.numComments/></a></b:if>
+
+<b:if cond='data:blog.pageType != "item"'>
+<b:loop values='data:post.feedLinks' var='f'>
+   <a class="comments" rel="comments" expr:href='data:post.url + "#comments"' expr:onclick='"peekaboo_comments_display(&amp;quot;" + data:f.url + "&amp;quot;,&amp;quot;commentsul" + data:post.id + "&amp;quot;);toggleitem(&amp;quot;comments" + data:post.id + "&amp;quot;);return false;"'><data:post.numComments/></a>
+</b:loop>
+</b:if>
+
+ |</b:if>
+ <b:if cond='data:post.showBacklinks'>
+    <b:if cond='data:blog.pageType == "item"'><a expr:href='data:post.url + "#backlinks"' onclick="toggleitem('backlinks');return false;"><data:post.numBacklinks/> Backlinks</a></b:if>
+    <b:if cond='data:blog.pageType != "item"'><a expr:href='data:post.url + "#backlinks"' expr:onclick='"toggleitem(&amp;quot;backlinks" + data:post.id + "&amp;quot;);return false;"'><data:post.numBacklinks/> Backlinks</a></b:if>
+ |</b:if>
+ <a expr:href='data:post.url' title="permalink" class="permalink" rel="bookmark permalink">permalink</a>
+
+  <span class="control">
+     <b:if cond='data:post.emailPostUrl'>
+        <span class='item-action'>
+           <a expr:href='data:post.emailPostUrl' title='Email Post'>
+              <span class='email-post-icon'>&#160;</span>
+           </a>
+        </span>
+      </b:if>
+      <b:include data='post' name='postQuickEdit'/>
+  </span>
+  
+</div>
+  <hr class="postend" />
+<b:if cond='data:post.allowComments'>
+   <b:if cond='data:blog.pageType != "item"'>&lt;div id="comments<data:post.id/>" style="display:none;"&gt;</b:if>
+   <b:if cond='data:blog.pageType == "item"'>&lt;div id="comments" style="display:inline;"&gt;</b:if>
+   <b:loop values='data:post.feedLinks' var='f'>There is an <a expr:href='data:f.url + "?alt=rss"' rel='alternate comments'>RSS Feed</a> for comments on this post.</b:loop>
+      <ul class="xoxo comments" expr:id='"commentsul" + data:post.id'> 
+<b:if cond='data:blog.pageType != "item"'>
+<b:loop values='data:post.feedLinks' var='f'>
+   <b:if cond='data:blog.pageType != "item"'>
+      <script expr:src='data:f.url + "?alt=json-in-script&amp;amp;callback=peekaboo_comments_display"' type='text/javascript'/>
+   </b:if>
+</b:loop>
+</b:if>
+<b:loop values='data:post.comments' var='comment'>
+   <b:if cond='data:comment.isDeleted'>
+   <b:else/>
+         <li class="commentelem" expr:id='"c" + data:comment.id'>Comment at <a expr:href='data:post.url + "#c" + data:comment.id' title='data:comment.id + "0"'><data:comment.timestamp/></a> by
+            <address class="author vcard">
+               <b:if cond='data:comment.authorUrl != ""'>
+                  <a class="url fn" expr:href='data:comment.authorUrl'><data:comment.author/></a>
+               <b:else/>
+                  <span class="fn"><data:comment.author/></span>
+               </b:if>
+            </address>
+<a expr:name='data:comment.id'> </a>
+            <dl>
+               <dt class="body">body</dt>
+                  <dd class="body"><data:comment.body/></dd>
+            </dl>
+<b:include data='comment' name='commentDeleteIcon'/>
+<br />
+         </li>
+   </b:if>
+</b:loop>
+      </ul>
+
+   <a class='lbOn' expr:href='"#comment-form-" + data:post.id'><data:postCommentMsg/></a>
+   &lt;/div&gt;
+</b:if>
+
+<b:if cond='data:blog.pageType != "item"'>&lt;div id="backlinks<data:post.id/>" style="display:none;"&gt;</b:if>
+<b:if cond='data:blog.pageType == "item"'>&lt;div id="backlinks" style="display:inline;"&gt;</b:if>
+<h2><data:post.numBacklinks/> Backlinks</h2>
+   <b:include data='post' name='backlinks'/>
+&lt;/div&gt;
+
+</li>
+
+</b:loop>
+</b:includable>
+</b:widget>
+</b:section>
+</ul>
+
+<div id="sidebar">
+<b:section class='sidebar' id='sidebar-widgets' showaddelement='yes' growth='vertical'>
+
+   <b:widget id='profile' locked='no' title='Profile' type='Profile'>
+      <b:includable id='main' var='profile'>
+      <b:if cond='data:profile.team'>
+         <ul class='xoxo'>
+            <b:loop values='data:profile.authors' var='author'>
+               <li class='vcard'><a class='fn url' expr:href='author.userURL'><data:author.displayname/></a></li>
+            </b:loop>
+         </ul>
+      <b:else/>
+         <div class='vcard'>
+         <!-- Uncomment commented lines to show more data -->
+         <!-- <b:if cond='data:profile.photo.url'><img class='photo' style='float:left;margin-right:5px;' expr:src='data:profile.photo.url' expr:width='data:profile.photo.width' expr:height='data:profile.photo.height' expr:alt='data:profile.photo.alt' /></b:if> -->
+         A blog by :
+         <a class="fn url" expr:href="data:profile.userUrl"><data:profile.displayname/></a>
+         <!-- <b:if cond='data:profile.location'><br /> <span class='adr'><data:profile.location/></span></b:if> -->
+         <!-- <b:if cond='data:profile.aboutme'><br /><br /> <span class='note'><data:profile.aboutme/></span></b:if> -->
+         </div>
+      </b:if>
+      <b:include name='quickedit'/>
+      </b:includable>
+   </b:widget>
+   <br />
+
+<b:widget id='HTML1' locked='false' title='Syndication' type='HTML'>
+<b:includable id='main'>
+  <!-- only display title if it's non-empty -->
+  <b:if cond='data:title != ""'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+     <ul class="xoxo"> <li><img alt="" src="http://photos1.blogger.com/blogger/6537/1341/1600/feed-icon-12x12.jpg"/> <a href="/feeds/posts/default?alt=rss" rel="alternate">Post Feed</a></li>     <li><img alt="" src="http://photos1.blogger.com/blogger/6537/1341/1600/feed-icon-12x12.jpg"/> <a href="/feeds/comments/default?alt=rss" rel="alternate">Comment Feed</a></li>  </ul>
+  </div>
+</b:includable>
+</b:widget>
+
+<b:widget id='LinkList1' locked='false' title='Links' type='LinkList'>
+   <b:includable id='main'>
+      <b:if cond='data:title'><h2 class='sidebar-title'><data:title/></h2></b:if>
+   <ul class='xoxo blogroll'>
+     <b:loop values='data:links' var='link'>
+       <li><a expr:href='data:link.target'><data:link.name/></a></li>
+     </b:loop>
+   </ul>
+   <b:include name='quickedit'/>
+</b:includable>
+</b:widget>
+
+<b:widget id='BlogArchive1' locked='false' title='Archive' type='BlogArchive'>
+<b:includable id='main'>
+  <b:if cond='data:title'>
+    <h2><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+  <div id='ArchiveList'>
+  <div expr:id='data:widget.instanceId + "_ArchiveList"'>
+    <b:if cond='data:style == "HIERARCHY"'>
+     <b:include data='data' name='interval'/>
+    </b:if>
+    <b:if cond='data:style == "FLAT"'>
+      <b:include data='data' name='flat'/>
+    </b:if>
+    <b:if cond='data:style == "MENU"'>
+      <b:include data='data' name='menu'/>
+    </b:if>
+  </div>
+  </div>
+  <b:include name='quickedit'/>
+  </div>
+</b:includable>
+<b:includable id='flat' var='data'>
+  <ul>
+    <b:loop values='data:data' var='i'>
+      <li class='archivedate'>
+        <a expr:href='data:i.url'><data:i.name/></a> (<data:i.post-count/>)
+      </li>
+    </b:loop>
+  </ul>
+</b:includable>
+<b:includable id='menu' var='data'>
+  <select expr:id='data:widget.instanceId + "_ArchiveMenu"'>
+    <option value=''><data:title/></option>
+    <b:loop values='data:data' var='i'>
+      <option expr:value='data:i.url'><data:i.name/> (<data:i.post-count/>)</option>
+    </b:loop>
+  </select>
+</b:includable>
+<b:includable id='interval' var='intervalData'>
+  <b:loop values='data:intervalData' var='i'>
+      <ul>
+        <li expr:class='"archivedate " + data:i.expclass'>
+          <b:include data='i' name='toggle'/>
+          <a class='post-count-link' expr:href='data:i.url'><data:i.name/></a>
+            (<span class='post-count'><data:i.post-count/></span>)
+          <b:if cond='data:i.data'>
+            <b:include data='i.data' name='interval'/>
+          </b:if>
+          <b:if cond='data:i.posts'>
+            <b:include data='i.posts' name='posts'/>
+          </b:if>
+        </li>
+      </ul>
+  </b:loop>
+</b:includable>
+<b:includable id='toggle' var='interval'>
+  <b:if cond='data:interval.toggleId'>
+  <b:if cond='data:interval.expclass == "expanded"'>
+    <a class='toggle' expr:href='data:widget.actionUrl + "&amp;action=toggle" +       "&amp;dir=close&amp;toggle=" + data:interval.toggleId +       "&amp;toggleopen=" + data:toggleopen'>
+        <span class='zippy toggle-open'>&#9660; </span>
+    </a>
+  <b:else/>
+    <a class='toggle' expr:href='data:widget.actionUrl + "&amp;action=toggle" +         "&amp;dir=open&amp;toggle=" + data:interval.toggleId +         "&amp;toggleopen=" + data:toggleopen'>
+          <span class='zippy'>&#9658; </span>
+    </a>
+  </b:if>
+ </b:if>
+</b:includable>
+<b:includable id='posts' var='posts'>
+  <ul class='posts'>
+    <b:loop values='data:posts' var='i'>
+      <li><a expr:href='data:i.url'><data:i.title/></a></li>
+    </b:loop>
+  </ul>
+</b:includable>
+</b:widget>
+
+
+</b:section>
+
+   <div id="xoxovalid">
+      <a href="http://xoxotools.ning.com/xoxovalid.php?url=refer"><img src="http://photos1.blogger.com/blogger/6537/1341/1600/XOXObadge.png" alt="Valid XOXO!" /></a>
+   </div>
+   <div id="firefox">
+      This page best viewed using <a href="http://www.spreadfirefox.com/?q=affiliates&amp;id=119619&amp;t=66">Mozilla Firefox</a>.
+   </div>
+
+<div style="font-size:10pt;text-align:center;margin-top:1em;">
+Original template &amp;copy; 2006 <a href="http://singpolyma-tech.blogspot.com/">Stephen Paul Weber</a>.<br />
+<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" rel="license">Some Rights Reserved</a>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
